@@ -1,0 +1,9 @@
+!!!
+%html
+  %head
+    %meta{:"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" }
+    %meta{:name => "viewport", :content => "width = 900"}
+    %title= @page_title || t(controller.controller_name, :default => [:also_missing, controller.controller_name.humanize])
+    = csrf_meta_tag
+  %body
+    = yield

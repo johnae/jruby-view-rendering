@@ -1,0 +1,22 @@
+.box
+  %h3= t :log
+  %br
+  %table
+    %thead.log{:title => "STATUS CODES:\n\n#{@status_codes}"}
+      %tr
+        %th= t :log_timestamp
+        %th= t :log_from
+        %th= t :log_to
+        %th= t :log_status
+
+    %tbody
+      - for log_entry in @log
+        %tr.note{:title => "#{log_entry.id}\n\n#{log_entry.message}"}
+          %td.nowrap
+            - if log_entry.created_at.to_i > 1.hour.ago.to_i
+              = "#{time_ago_in_words(log_entry.created_at)}" rescue 'No timestamp'
+            - else
+              = l(log_entry.created_at.to_datetime, :format => :long) rescue 'No timestamp'
+          %td= "#{log_entry.source}" rescue 'No source'
+          %td= "#{log_entry.destination}" rescue 'No destination'
+          %td= "#{log_entry.status_code.to_s}: #{log_entry.status.to_s}"
